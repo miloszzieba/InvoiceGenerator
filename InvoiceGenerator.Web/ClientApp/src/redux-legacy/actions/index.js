@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { SET_INVOICE_DETAILS, SET_RECIPANT_DETAILS, SET_ISSUER_DETAILS, SET_INVOICE_TABLE, ADD_ITEM, UPDATE_ITEM } from '../constants/actionTypes';
+import { SET_INVOICE_DETAILS, SET_RECIPANT_DETAILS, SET_ISSUER_DETAILS, SET_INVOICE_TABLE, ADD_ITEM, UPDATE_ITEM, SELECT_LIST_ITEM, FETCH_INVOICE_HISTORY_SUCCESS } from '../constants/actionTypes';
+import { INVOICE_HISTORY_URL } from '../../Resources/endpoints_LOCAL'
 
 export function setInvoiceDetails(name, val) {
     return {
@@ -102,14 +103,14 @@ export function getInvoiceHistoryPending() {
     }
 }
 
-export function selectListItem(itemId: number) {
+export function selectListItem(itemId) {
     return {
-        type: "SELECT_LIST_ITEM",
+        type: SELECT_LIST_ITEM,
         payload: itemId
     }
 }
 export const fetchInvoiceHistoryListSuccess = history => ({
-    type: 'FETCH_INVOICE_HISTORY_SUCCESS',
+    type: FETCH_INVOICE_HISTORY_SUCCESS,
     payload: { history }
 })
 
@@ -117,7 +118,7 @@ export function fetchInvoiceHistoryList() {
     return async dispatch => {
         dispatch(getInvoiceHistoryPending());
         try {
-            await axios.get('http://localhost:3003/api/invoicehistory').then(response => {
+            await axios.get(INVOICE_HISTORY_URL).then(response => {
             dispatch(fetchInvoiceHistoryListSuccess(response.data))
             dispatch(snackBarSuccess("Pobrano liste historii faktur"))
             }

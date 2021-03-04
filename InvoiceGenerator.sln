@@ -5,7 +5,25 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceGenerator.Web", "InvoiceGenerator.Web\InvoiceGenerator.Web.csproj", "{352F1AF4-783C-464A-81F3-6F7EE11D951D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceGenerator.History.Api", "InvoiceGenerator.History.Api\InvoiceGenerator.History.Api.csproj", "{20E9F866-69FC-4EB0-BAD7-4530D2E6A629}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceGenerator.History.Api", "InvoiceGenerator.History.Api\InvoiceGenerator.History.Api.csproj", "{20E9F866-69FC-4EB0-BAD7-4530D2E6A629}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceGenerator.Authorization", "InvoiceGenerator.Authorization\InvoiceGenerator.Authorization.csproj", "{0E203E66-F585-4966-98FB-035AFB256926}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InvoiceGenerator.Gateway", "InvoiceGenerator.Gateway", "{391528EB-35D5-41AE-A24A-EBBEB06359C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceGenerator.Gateway.Api", "InvoiceGenerator.Gateway.Api\InvoiceGenerator.Gateway.Api.csproj", "{DB181F9C-010B-4250-8FF8-B81749E35C7E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4F7E3183-D493-42D6-948D-EE8EE066C135}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Invoice", "Invoice", "{8C2BFC4E-CC89-4CCB-BBA8-AFF5FBCAEB7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplatesService", "TemplatesService\TemplatesService.csproj", "{D156662D-74E6-490C-B43C-FC2568AFBDD0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplatesService.Tests", "TemplatesService.Tests\TemplatesService.Tests.csproj", "{A38A56A3-1845-4BDB-A9A7-BBD1A1D9DBD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedLibraries", "SharedLibraries", "{15B92831-720B-4492-8CCC-0C4417641C2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceGenerator.Core", "InvoiceGenerator.Core\InvoiceGenerator.Core.csproj", "{7FA4C094-BE69-446B-A47F-063DEC9AB154}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,12 +39,36 @@ Global
 		{20E9F866-69FC-4EB0-BAD7-4530D2E6A629}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20E9F866-69FC-4EB0-BAD7-4530D2E6A629}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20E9F866-69FC-4EB0-BAD7-4530D2E6A629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E203E66-F585-4966-98FB-035AFB256926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E203E66-F585-4966-98FB-035AFB256926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E203E66-F585-4966-98FB-035AFB256926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E203E66-F585-4966-98FB-035AFB256926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB181F9C-010B-4250-8FF8-B81749E35C7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB181F9C-010B-4250-8FF8-B81749E35C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB181F9C-010B-4250-8FF8-B81749E35C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB181F9C-010B-4250-8FF8-B81749E35C7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D156662D-74E6-490C-B43C-FC2568AFBDD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D156662D-74E6-490C-B43C-FC2568AFBDD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D156662D-74E6-490C-B43C-FC2568AFBDD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D156662D-74E6-490C-B43C-FC2568AFBDD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A38A56A3-1845-4BDB-A9A7-BBD1A1D9DBD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A38A56A3-1845-4BDB-A9A7-BBD1A1D9DBD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A38A56A3-1845-4BDB-A9A7-BBD1A1D9DBD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A38A56A3-1845-4BDB-A9A7-BBD1A1D9DBD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FA4C094-BE69-446B-A47F-063DEC9AB154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FA4C094-BE69-446B-A47F-063DEC9AB154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FA4C094-BE69-446B-A47F-063DEC9AB154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FA4C094-BE69-446B-A47F-063DEC9AB154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{F6F971DC-F0D1-4615-B4B8-F7B2CA5633F9} = {CDE11C7F-0C8A-4365-95BA-F799610CEA26}
+		{DB181F9C-010B-4250-8FF8-B81749E35C7E} = {391528EB-35D5-41AE-A24A-EBBEB06359C4}
+		{8C2BFC4E-CC89-4CCB-BBA8-AFF5FBCAEB7A} = {4F7E3183-D493-42D6-948D-EE8EE066C135}
+		{D156662D-74E6-490C-B43C-FC2568AFBDD0} = {8C2BFC4E-CC89-4CCB-BBA8-AFF5FBCAEB7A}
+		{A38A56A3-1845-4BDB-A9A7-BBD1A1D9DBD2} = {8C2BFC4E-CC89-4CCB-BBA8-AFF5FBCAEB7A}
+		{7FA4C094-BE69-446B-A47F-063DEC9AB154} = {15B92831-720B-4492-8CCC-0C4417641C2D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C61B3F0C-52D0-4F5B-BCF4-5BC9519ACFA9}

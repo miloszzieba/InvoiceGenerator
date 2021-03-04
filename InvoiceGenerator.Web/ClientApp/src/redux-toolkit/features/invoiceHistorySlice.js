@@ -5,27 +5,19 @@ import { FETCH_INVOICE_HISTORY_BY_ID_FULLFILLED, FETCH_INVOICE_HISTORY_BY_ID_ERR
 import { updateInvoiceData } from '../actions'
 import { snackBarSuccess, snackBarError } from "./userInterfaceSlice";
 
-const history = {
-    creationDate: "",
-    invoiceNumber: "",
-    jsonEncodedInvoice: "",
-}
+
 const initialState = {
-    table: [history],
+    table: [],
     isLoading: false,
     error: "",
     selectedListItemIndex: -1
 }
+
 export const fetchInvoiceHistoryList = createAsyncThunk(
     'invoiceHistory/fetchInvoiceHistoryList',
     async () => {
-        try {
-            return await axios.get(INVOICE_HISTORY_URL)
-                .then(response => response.data)
-        }
-        catch (e) {  
-            return e
-        }
+        return await axios.get(INVOICE_HISTORY_URL)
+            .then(response => response.data)
     }
 );
 
@@ -62,9 +54,8 @@ const invoiceHistorySlice = createSlice({
             state.isLoading = false
             state.table = action.payload
         },
-        [fetchInvoiceHistoryList.rejected]: (state, action) => {
+        [fetchInvoiceHistoryList.rejected]: (state ) => {
             state.isLoading = false
-            state.table = []
         }
     }
 

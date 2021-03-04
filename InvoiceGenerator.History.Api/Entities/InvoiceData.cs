@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace InvoiceGenerator.History.Api.Entities
 {
-    public class InvoiceData
+    public class InvoiceData : IEntity
     {
-       public int Id { get; set; }
-
         public string JsonEncodedInvoice { get; set; }
+    
+        public int Id { get; set; }
     }
 }

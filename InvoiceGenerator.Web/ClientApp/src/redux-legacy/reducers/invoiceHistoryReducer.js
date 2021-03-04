@@ -23,9 +23,7 @@ const invoiceHistoryReducer = (state = initialState, action) => {
         }); 
     }
     else if (action.type === "SELECT_LIST_ITEM") {
-        return Object.assign({}, state, {
-            selectedListItemIndex: action.payload,
-        });
+        return { ...state, selectedListItemIndex: action.payload }
     }
     else
         return state

@@ -5,15 +5,16 @@ import { connect } from "react-redux";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 //import { fetchInvoiceHistoryList, selectListItem, fetchInvoiceHistoryById } from "../../../redux-legacy/actions";
-import { fetchInvoiceHistoryList, fetchInvoiceHistoryById, selectListItem  } from "../../../redux-toolkit/features/invoiceHistorySlice";
+import { fetchInvoiceHistoryList, fetchInvoiceHistoryById, selectListItem } from "../../../redux-toolkit/features/invoiceHistorySlice";
+import { deleteInvoiceHistory } from "../../../redux-toolkit/actions"
 //import { snackBarSuccess, snackBarError } from "../../../redux-legacy/actions";
 import { snackBarSuccess, snackBarError } from "../../../redux-toolkit/features/userInterfaceSlice";
-
+import DeleteIcon from '@material-ui/icons/Delete';
 import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { FETCH_INVOICE_HISTORY_FULLFILLED, FETCH_ERROR, INVOICE_HISTORY_LABEL} from '../../../Resources/wordings_PL'
+import { INVOICE_HISTORY_LABEL } from '../../../Resources/wordings_PL'
 
 class InoiceHistorySidePanel extends React.Component {
 
@@ -29,24 +30,24 @@ class InoiceHistorySidePanel extends React.Component {
                 <List>
                     {this.renderList()}
                 </List>
-            <div>
+                <div>
                 </div>
             </Paper>
         );
     }
 
     componentDidMount() {
-        this.props.fetchData()
-            .then(this.props.snackBarSuccess(FETCH_INVOICE_HISTORY_FULLFILLED))
-            .catch(() => { this.props.snackBarError(FETCH_ERROR) });
+        this.props.fetchData();
     }
 
     reloadData() {
         this.props.fetchData();
     }
+    deleteInvoiceHistory(id) {
+        this.props.deleteInvoiceHistory(id);
+    }
 
     handleListItemClick = (
-        event,
         id
     ) => {
         this.props.setSelectedIndex(id);
@@ -56,18 +57,19 @@ class InoiceHistorySidePanel extends React.Component {
     renderList() {
         let { history } = this.props;
         return history.table.map((data, i) => (
+            <div key={i}  style={{ display: 'flex', flexDirection: 'row' }}>
+                <ListItem button key={i} style={{ width: '80%', }}
+                    selected={history.selectedListItemIndex === data.id}
+                    onClick={(id) => this.handleListItemClick(data.id)}>
+                    <ListItemText primary={data.invoiceNumber} secondary={data.creationDate.replace("T", " ")} />
+                </ListItem>
+                <IconButton style={{ width: '20%' }} color="primary" aria-label="refresh" component="span" onClick={() => this.deleteInvoiceHistory(data.id)}><DeleteIcon color="primary" /></IconButton>
+            </div>
 
-            <ListItem button key={i} 
-                selected={history.selectedListItemIndex === data.id}
-                onClick={(event, id) => this.handleListItemClick(event, data.id)}>
-                <ListItemText primary={data.invoiceNumber} secondary={data.creationDate.replace("T", " ")} /> 
-            </ListItem>
-           
         ))
     }
 
 }
-
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -75,11 +77,12 @@ function mapDispatchToProps(dispatch) {
         setSelectedIndex: (index) => dispatch(selectListItem(index)),
         fetchInvoiceHistoryById: (id) => dispatch(fetchInvoiceHistoryById(id)),
         snackBarSuccess: (message) => dispatch(snackBarSuccess(message)),
-        snackBarError: (message) => dispatch(snackBarError(message))
+        snackBarError: (message) => dispatch(snackBarError(message)),
+        deleteInvoiceHistory: (id) => dispatch(deleteInvoiceHistory(id))
     }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
         history: state.history,
     }

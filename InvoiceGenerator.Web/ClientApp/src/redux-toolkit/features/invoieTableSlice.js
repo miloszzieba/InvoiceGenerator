@@ -45,7 +45,7 @@ const invoiceTableSlice = createSlice({
             state.table.push(newRow(state.table.length + 1))
         },
         removeItem(state, action) {
-            state.table.splice(action.payload.id, 1);
+            state.table.splice(action.payload, 1);
             state.table.map((item, i) => { item.id = i });
         },
         updateItem(state, action) {

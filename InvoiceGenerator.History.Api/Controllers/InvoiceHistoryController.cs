@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using InvoiceGenerator.Core.Repository;
 using InvoiceGenerator.History.Api.Entities;
 using InvoiceGenerator.History.Api.Models;
 using InvoiceGenerator.History.Api.Repository;
@@ -15,10 +16,10 @@ namespace InvoiceGenerator.History.Api.Controllers
     [ApiController]
     public class InvoiceHistoryController : ControllerBase
     {
-        private readonly IHistoryRepository historyRepository;
+        private readonly IAsyncRepository<InvoiceHistory> historyRepository;
         private readonly IMapper mapper;
 
-        public InvoiceHistoryController(IHistoryRepository historyRepository, IMapper mapper)
+        public InvoiceHistoryController(IAsyncRepository<InvoiceHistory> historyRepository, IMapper mapper)
         {
             this.historyRepository = historyRepository;
             this.mapper = mapper;
@@ -27,9 +28,10 @@ namespace InvoiceGenerator.History.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<InvoiceHistoryDto>>> Get()
         {
+           await Task.Delay(2000);
             try
             {
-                IEnumerable<InvoiceHistory> histories = await this.historyRepository.GetAllInvoiceHistories();
+                IEnumerable<InvoiceHistory> histories = await this.historyRepository.GetAllAsync();
                 var dto = mapper.Map<List<InvoiceHistoryDto>>(histories).OrderByDescending(d => d.CreationDate);
 
                 return Ok(dto);
@@ -43,9 +45,10 @@ namespace InvoiceGenerator.History.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<InvoiceHistoryDto>>> Get(int id)
         {
+            
             try
             {
-                var history = await this.historyRepository.GetInvoiceHistoryWithDataById(id);
+                var history = await this.historyRepository.GetyByIdAsync(id);
                 var dto = mapper.Map<InvoiceHistoryDto>(history);
 
                 if (dto == null)
@@ -67,7 +70,24 @@ namespace InvoiceGenerator.History.Api.Controllers
             try
             {
                 invoiceHistory.CreationDate = DateTime.UtcNow;
-                this.historyRepository.Add<InvoiceHistory>(invoiceHistory);
+                await this.historyRepository.AddAsync(invoiceHistory);
+                await this.historyRepository.SaveChangesAsync();
+
+                return Ok(invoiceHistory);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<InvoiceHistoryDto>> Put([FromBody] InvoiceHistory invoiceHistory)
+        {
+            try
+            {
+                invoiceHistory.CreationDate = DateTime.UtcNow;
+                await this.historyRepository.UpdateAsync(invoiceHistory);
                 await this.historyRepository.SaveChangesAsync();
 
                 return Ok(invoiceHistory);
@@ -83,7 +103,7 @@ namespace InvoiceGenerator.History.Api.Controllers
         {
             try
             {
-                this.historyRepository.Delete(id);
+                 await this.historyRepository.DeleteAsync(id);
                 await this.historyRepository.SaveChangesAsync();
 
                 return Ok();

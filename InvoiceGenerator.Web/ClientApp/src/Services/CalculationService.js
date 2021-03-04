@@ -5,7 +5,7 @@ export  function calculateRow(NettoPrice, Quantity, Vat)
 	let NettoValue = multiply($(NettoPrice), $(Quantity)).toNumber().toFixed(2);
 	let vatPercent = divide($(Vat.replace("%", "")),$(100));
 	let VatValue = multiply($(NettoValue), $(vatPercent)).toNumber().toFixed(2);
-	let GrossValue = $(NettoValue).minus($(VatValue)).toNumber().toFixed(2);
+	let GrossValue = $(NettoValue).plus($(VatValue)).toNumber().toFixed(2);
 
 		return {
 		NettoValue:isNaN( NettoValue)? 0 : NettoValue

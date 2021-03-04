@@ -33,3 +33,51 @@ export function postInvoiceData(invoiceHistory) {
         }
     }
 }
+
+export function deleteInvoiceHistory(id) {
+    return async dispatch => {
+        try {
+            await axios({
+                method: 'DELETE',
+                url: INVOICE_HISTORY_URL +id,
+
+            }
+            ).then(response => {
+                dispatch(fetchInvoiceHistoryList())
+                dispatch(snackBarSuccess("Poprawnie usunięto historię faktury"))
+            }
+            );
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(snackBarError("Wystapil blad podczas usuwania faktury"))
+
+        }
+    }
+}
+
+export function updateInvoiceHistory(invoiceHistory) {
+    return async dispatch => {
+        try {
+            await axios({
+                method: 'PUT',
+                url: INVOICE_HISTORY_URL,
+                data: {
+                    "invoiceNumber": invoiceHistory.invoiceNumber,
+                    "invoiceData": invoiceHistory.invoiceData
+                }
+
+            }
+            ).then(response => {
+                dispatch(fetchInvoiceHistoryList())
+                dispatch(snackBarSuccess("Poprawnie zaktualizowano historię faktury"))
+            }
+            );
+        }
+        catch (e) {
+            console.log(e);
+            dispatch(snackBarError("Wystapil blad podczas aktualizowania historii faktury"))
+
+        }
+    }
+}

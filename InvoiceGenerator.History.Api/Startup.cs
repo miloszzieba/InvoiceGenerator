@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using InvoiceGenerator.Core.Repository;
 using InvoiceGenerator.History.Api.Context;
 using InvoiceGenerator.History.Api.Entities;
 using InvoiceGenerator.History.Api.MockedSeed;
@@ -40,7 +41,7 @@ namespace InvoiceGenerator.History.Api
             });
 
             services.AddControllers();
-            services.AddScoped<IHistoryRepository, HistoryRepository>();
+            services.AddScoped<IAsyncRepository<InvoiceHistory>, HistoryRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<InvoiceHistoryContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

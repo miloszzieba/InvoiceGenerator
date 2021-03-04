@@ -15,10 +15,6 @@ import issuerReducer from "../../redux-toolkit/features/issuerSlice";
 import userInterfaceReducer from "../../redux-toolkit/features/userInterfaceSlice";
 
 
-
-
-
-
 const rootReducer = combineReducers({
 	invoice: invoiceDetailsReducer,
 	issuer: issuerReducer,

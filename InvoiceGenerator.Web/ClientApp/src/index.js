@@ -4,11 +4,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { Provider } from "react-redux";
-import createReduxStore from "./redux-legacy/store/createReduxStore";
 import configureReduxToolkitStore from "./redux-toolkit/store/configureReduxToolkitStore";
-
-import rootReducer from "./redux-legacy/reducers";
-
 let store = configureReduxToolkitStore(); //createReduxStore();
    // configureReduxToolkitStore(); //
 

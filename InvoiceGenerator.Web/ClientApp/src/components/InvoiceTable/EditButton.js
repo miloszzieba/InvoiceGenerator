@@ -34,10 +34,6 @@ class EditButton extends Component {
                 </td>
         );
     }
-
-	    removeRow(rowId) {
-		this.props.removeItem(rowId);
-    }
 }
 
 function mapStateToProps(state, ownProps) {

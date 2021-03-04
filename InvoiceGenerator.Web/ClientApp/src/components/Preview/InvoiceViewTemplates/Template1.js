@@ -40,7 +40,9 @@ function Template1(props) {
                             <th>Cena jednostkowa netto</th>
                             <th>Wartość netto</th>
                             <th>Vat</th>
-                                <th>Wartość vat</th>
+                            <th>Wartość vat</th>
+                            <th>Wartość brutto</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -86,6 +88,7 @@ const renderRows = (arr) => {
             <td>{data.NettoValue}</td>
             <td>{data.Vat}</td>
             <td>{data.VatValue}</td>
+            <td>{data.GrossValue}</td>
         </tr>
     ))
 }
